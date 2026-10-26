@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Sekolah | SEKOLAHKU</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/sekolah.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="brand">
+        <span class="logo">✦</span>
+        <span>
+            <b>SEKOLAHKU</b>
+            <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
+        </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <nav id="nav">
+        <a href="index.html">Beranda</a>
+        <a href="sekolah.html" class="active">Daftar Sekolah</a>
+        <a href="perbandingan.html">Perbandingan</a>
+        <a href="rekomendasi.html">Rekomendasi</a>
+        <a href="tentang.html">Tentang</a>
+    </nav>
+
+    <a href="login.php" class="login">Masuk / Daftar</a>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">DIREKTORI SEKOLAH TERPADU</span>
+
+            <h1>
+                Temukan SMA dan SMK
+                <span>untuk Masa Depanmu</span>
+            </h1>
+
+            <p>
+                Jelajahi informasi sekolah, kenali fasilitasnya,
+                dan temukan pilihan pendidikan yang sesuai dengan
+                minat serta rencana masa depanmu.
+            </p>
+
+            <div class="crumb">
+                <a href="index.html">Beranda</a>
+                <span>›</span>
+                <b>Daftar Sekolah</b>
+            </div>
+        </div>
+
+        <div class="hero-illustration">
+            <div class="sun"></div>
+
+            <div class="school-building">
+                <div class="roof"></div>
+                <div class="building-top"></div>
+                <div class="building-main">
+                    <div class="windows">▥　▥　▥</div>
+                    <div class="door"></div>
+                </div>
+            </div>
+
+            <div class="floating-cap">🎓</div>
+            <div class="floating-star">✦</div>
+        </div>
+    </section>
+
+    <section class="search-wrap wrap">
+        <label class="search-box">
+            <span>⌕</span>
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Cari nama sekolah atau daerah..."
+            >
+        </label>
+
+        <label class="filter-box">
+            <span>📍</span>
+            <select id="provinceFilter">
+                <option value="">Semua Provinsi</option>
+            </select>
+        </label>
+
+        <label class="filter-box">
+            <span>▤</span>
+            <select id="levelFilter">
+                <option value="">Semua Jenjang</option>
+                <option value="SMA">SMA</option>
+                <option value="SMK">SMK</option>
+            </select>
+        </label>
+
+        <label class="filter-box">
+            <span>◈</span>
+            <select id="statusFilter">
+                <option value="">Negeri & Swasta</option>
+                <option value="Negeri">Negeri</option>
+                <option value="Swasta">Swasta</option>
+            </select>
+        </label>
+
+        <button class="btn primary" id="searchButton">
+            Cari Sekolah →
+        </button>
+    </section>
+
+    <section class="stats wrap">
+        <div class="stat">
+            <span class="stat-icon blue">▣</span>
+            <div>
+                <b id="schoolCount">0</b>
+                <small>Sekolah ditampilkan</small>
+            </div>
+        </div>
+
+        <div class="stat">
+            <span class="stat-icon pale">⌖</span>
+            <div>
+                <b id="provinceCount">0</b>
+                <small>Provinsi contoh</small>
+            </div>
+        </div>
+
+        <div class="stat">
+            <span class="stat-icon yellow">★</span>
+            <div>
+                <b>2</b>
+                <small>Jenjang pendidikan</small>
+            </div>
+        </div>
+
+        <div class="stat">
+            <span class="stat-icon mint">✓</span>
+            <div>
+                <b>Terpadu</b>
+                <small>Informasi sekolah</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="directory wrap">
+        <div class="section-head">
+            <div>
+                <span class="section-label">JELAJAHI PILIHANMU</span>
+                <h2>Direktori SMA dan SMK</h2>
+                <p>
+                    Pilih sekolah berdasarkan lokasi, jenjang,
+                    dan status sekolah.
+                </p>
+            </div>
+
+            <div class="tabs">
+                <button id="allBtn" class="tab active">
+                    Semua Sekolah
+                </button>
+
+                <button id="favBtn" class="tab">
+                    ♡ Favorit
+                </button>
+            </div>
+        </div>
+
+        <div class="result-line">
+            <span id="resultText">Memuat daftar sekolah...</span>
+            <button id="resetBtn" class="link-button">
+                Atur Ulang Filter ↺
+            </button>
+        </div>
+
+        <div id="schoolGrid" class="school-grid"></div>
+
+        <div id="emptyState" class="empty" hidden>
+            <div>⌕</div>
+            <h3>Sekolah tidak ditemukan</h3>
+            <p>Coba ubah kata kunci atau filter pencarianmu.</p>
+            <button class="btn primary" id="emptyReset">
+                Hapus Filter
+            </button>
+        </div>
+    </section>
+
+    <section class="map-promo wrap">
+        <div class="promo-copy">
+            <span class="pin-round">⌖</span>
+
+            <div>
+                <span class="section-label light">
+                    CARI BERDASARKAN LOKASI
+                </span>
+
+                <h2>Jelajahi Sekolah di Sekitarmu</h2>
+
+                <p>
+                    Lihat lokasi sekolah melalui peta dan kenali
+                    area di sekitar sekolah pilihanmu.
+                </p>
+
+                <a href="peta.html" class="btn white">
+                    Buka Peta Lokasi →
+                </a>
+            </div>
+        </div>
+
+        <div class="mini-map">
+            <span class="road r1"></span>
+            <span class="road r2"></span>
+            <span class="road r3"></span>
+            <span class="map-pin p1">●</span>
+            <span class="map-pin p2">●</span>
+            <span class="map-pin p3">●</span>
+            <span class="map-tag">Peta Sekolah</span>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-main">
+        <a href="index.html" class="brand footer-brand">
+            <span class="logo">✦</span>
+            <span>
+                <b>SEKOLAHKU</b>
+                <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
+            </span>
+        </a>
+
+        <nav>
+            <a href="index.html">Beranda</a>
+            <a href="sekolah.html">Daftar Sekolah</a>
+            <a href="perbandingan.html">Perbandingan</a>
+            <a href="rekomendasi.html">Rekomendasi</a>
+            <a href="tentang.html">Tentang</a>
+        </nav>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 SEKOLAHKU. Hak cipta dilindungi.</span>
+        <span>Kebijakan Privasi | Syarat & Ketentuan</span>
+    </div>
+</footer>
+
+</body>
+</html>

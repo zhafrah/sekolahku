@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Sekolah | SEKOLAHKU</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <script src="js/data.js" defer></script>
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        defer
+    ></script>
+
+    <script src="js/peta.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="brand">
+        <span class="logo">✦</span>
+        <span>
+            <b>SEKOLAHKU</b>
+            <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
+        </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <nav id="nav">
+        <a href="index.html">Beranda</a>
+        <a href="sekolah.html" class="active">Daftar Sekolah</a>
+        <a href="perbandingan.html">Perbandingan</a>
+        <a href="rekomendasi.html">Rekomendasi</a>
+        <a href="tentang.html">Tentang</a>
+    </nav>
+
+    <a href="login.php" class="login">Masuk / Daftar</a>
+</header>
+
+<main>
+    <section class="map-hero">
+        <div class="wrap">
+            <span class="eyebrow">PETA LOKASI SEKOLAH</span>
+
+            <h1>
+                Temukan Sekolah di
+                <span>Berbagai Lokasi</span>
+            </h1>
+
+            <p>
+                Gunakan peta untuk melihat persebaran sekolah SMA dan SMK
+                pada data contoh SEKOLAHKU.
+            </p>
+        </div>
+    </section>
+
+    <section class="map-workspace wrap">
+        <aside class="map-sidebar">
+            <h2>Daftar Lokasi Sekolah</h2>
+
+            <p class="muted">
+                Pilih sekolah untuk melihat lokasinya pada peta.
+            </p>
+
+            <label class="search-box map-search">
+                <span>⌕</span>
+                <input
+                    type="search"
+                    id="mapSearch"
+                    placeholder="Cari sekolah atau kota..."
+                >
+            </label>
+
+            <label class="filter-box full">
+                <span>▤</span>
+                <select id="mapLevel">
+                    <option value="">Semua Jenjang</option>
+                    <option value="SMA">SMA</option>
+                    <option value="SMK">SMK</option>
+                </select>
+            </label>
+
+            <div id="mapSchoolList" class="map-school-list"></div>
+        </aside>
+
+        <div class="map-main">
+            <div id="schoolMap"></div>
+
+            <p class="map-note">
+                ⓘ Peta menggunakan OpenStreetMap. Koordinat sekolah
+                merupakan data contoh untuk demonstrasi.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-main">
+        <a href="index.html" class="brand footer-brand">
+            <span class="logo">✦</span>
+            <span>
+                <b>SEKOLAHKU</b>
+                <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
+            </span>
+        </a>
+
+        <nav>
+            <a href="index.html">Beranda</a>
+            <a href="sekolah.html">Daftar Sekolah</a>
+            <a href="perbandingan.html">Perbandingan</a>
+            <a href="rekomendasi.html">Rekomendasi</a>
+            <a href="tentang.html">Tentang</a>
+        </nav>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 SEKOLAHKU. Hak cipta dilindungi.</span>
+        <span>Kebijakan Privasi | Syarat & Ketentuan</span>
+    </div>
+</footer>
+
+</body>
+</html>

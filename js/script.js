@@ -1,119 +1,67 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Menu hamburger untuk tampilan HP
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navMenu = document.querySelector(".nav-menu");
 
-/* =====================================
-   SEKOLAHKU - JAVASCRIPT
-===================================== */
-
-// 1. MENU HAMBURGER UNTUK HP
-
-const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.querySelector(".nav-menu");
-
-if (menuToggle && navMenu) {
+  if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", function () {
-        navMenu.classList.toggle("show");
-
-        // Memperbarui label aksesibilitas menu
-        const menuTerbuka = navMenu.classList.contains("show");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            menuTerbuka ? "true" : "false"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            menuTerbuka ? "Tutup menu" : "Buka menu"
-        );
+      navMenu.classList.toggle("active");
     });
+  }
 
-    // Menutup menu setelah salah satu tautan dipilih
-    const navLinks = navMenu.querySelectorAll("a");
+  // Tahun otomatis di footer
+  const yearElements = document.querySelectorAll("#year");
 
-    navLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-            navMenu.classList.remove("show");
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Buka menu");
-        });
-    });
-}
+  yearElements.forEach(function (element) {
+    element.textContent = new Date().getFullYear();
+  });
 
+  // Form pencarian sekolah di halaman beranda
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
+  const jenjangSelect = document.getElementById("jenjang");
 
-// 2. FITUR PENCARIAN SEKOLAH
-
-
-const searchForm = document.getElementById("searchForm");
-
-if (searchForm) {
+  if (searchForm && searchInput && jenjangSelect) {
     searchForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+      event.preventDefault();
 
-        const inputNama = document.getElementById("searchInput");
-        const pilihanJenjang = document.getElementById("jenjang");
+      const keyword = searchInput.value.trim();
+      const jenjang = jenjangSelect.value;
 
-        const namaSekolah = inputNama
-            ? inputNama.value.trim()
-            : "";
+      const params = new URLSearchParams();
 
-        const jenjangSekolah = pilihanJenjang
-            ? pilihanJenjang.value
-            : "";
+      if (keyword !== "") {
+        params.set("q", keyword);
+      }
 
-        if (namaSekolah === "" && jenjangSekolah === "") {
-            alert("Masukkan nama sekolah atau pilih jenjang SMA/SMK terlebih dahulu!");
-            return;
-        }
+      if (jenjang !== "all") {
+        params.set("jenjang", jenjang);
+      }
 
-        const parameter = new URLSearchParams();
+      let tujuan = "pages/sekolah.html";
+      const queryString = params.toString();
 
-        if (namaSekolah !== "") {
-            parameter.set("q", namaSekolah);
-        }
+      if (queryString !== "") {
+        tujuan += "?" + queryString;
+      }
 
-        if (jenjangSekolah !== "") {
-            parameter.set("jenjang", jenjangSekolah);
-        }
-
-        // Untuk sementara, tampilkan hasil pencarian
-        // karena halaman daftar sekolah belum dibuat.
-        const hasil = [];
-
-        if (namaSekolah !== "") {
-            hasil.push("Nama sekolah: " + namaSekolah);
-        }
-
-        if (jenjangSekolah !== "") {
-            hasil.push("Jenjang: " + jenjangSekolah);
-        }
-
-        alert(
-            "Pencarian SekolahKu\n\n" +
-            hasil.join("\n") +
-            "\n\nData pencarian berhasil dibaca!"
-        );
-
-        console.log("Parameter pencarian:", parameter.toString());
+      window.location.href = tujuan;
     });
-}
+  }
 
+  // Menandai menu navigasi yang sedang dibuka
+  const currentPage = window.location.pathname.split("/").pop();
+  const navLinks = document.querySelectorAll(".nav-link");
 
-// 3. TAHUN OTOMATIS DI FOOTER
+  navLinks.forEach(function (link) {
+    const linkPage = link.getAttribute("href");
 
-const yearElement = document.getElementById("currentYear");
+    if (linkPage) {
+      const linkFile = linkPage.split("/").pop().split("?")[0];
 
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-}
-
-
-// 4. EFEK TAUTAN NAVIGASI AKTIF
-
-const currentPage = window.location.pathname;
-
-document.querySelectorAll(".nav-link").forEach(function (link) {
-    const linkPath = new URL(link.href, window.location.origin).pathname;
-
-    if (linkPath === currentPage) {
+      if (linkFile === currentPage) {
         link.classList.add("active");
+      }
     }
+  });
 });
