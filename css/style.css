@@ -90,11 +90,18 @@ button {
     color: white;
     background: var(--blue);
     border-radius: 13px;
-    font-size: 23px;
+    font-size: 26px;
 }
 
-.logo-blue {
+.logo-SekolahKu {
+    display: inline-block;
     color: var(--blue);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    -webkit-text-stroke: 1px var(--blue);
 }
 
 .nav-menu {
@@ -274,10 +281,64 @@ button {
     color: #9AA4B8;
 }
 
-.search-input-group select {
-    max-width: 110px;
-    border-left: 1px solid var(--border);
-    padding-left: 12px;
+.pilih-jenjang {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 600px;
+    margin: 25px auto;
+}
+
+.jenjang-card {
+    background: #26304C;
+    border: 2px solid #1e497e;
+    border-radius: 18px;
+    padding: 25px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.jenjang-card input {
+    display: none;
+}
+
+.jenjang-content h3 {
+    font-size: 26px;
+    color: var(--blue);
+    margin-bottom: 8px;
+}
+
+.jenjang-content p {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.jenjang-content span {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.jenjang-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px #0875f922;
+    border-color: var(--blue);
+}
+
+.jenjang-card:has(input:checked) {
+    border-color: var(--blue);
+    background: #eff6ff;
+}
+
+@media (max-width: 500px) {
+    .pilih-jenjang {
+        grid-template-columns: 1fr;
+    }
 }
 
 .btn-search {
@@ -1729,11 +1790,8 @@ button {
 }
 
 .card-body h3 {
-    color: var(--navy);
-    font-size: 14px;
-    line-height: 1.5;
-    min-height: 40px;
-    margin-bottom: 4px;
+    background-color: #0d1b5e;
+    color: white;
 }
 
 .location {
