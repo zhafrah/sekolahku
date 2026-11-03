@@ -4,34 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekomendasi Sekolah | SEKOLAHKU</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- CSS berada di folder utama project -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .recommendation-panel {
+            background: #fff;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin: 24px 0;
+        }
+
+        #formRekomendasi {
+            display: grid;
+            gap: 12px;
+            max-width: 600px;
+        }
+
+        #formRekomendasi label {
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        #formRekomendasi select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 15px;
+        }
+
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .recommendation-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .recommendation-card h3 {
+            margin: 8px 0;
+            font-size: 19px;
+        }
+
+        .school-badge {
+            display: inline-block;
+            width: fit-content;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #eaf2ff;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .school-rating {
+            font-weight: 600;
+            color: #b7791f;
+        }
+
+        .school-map-link {
+            display: inline-block;
+            margin-top: auto;
+            padding: 11px 16px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .school-map-link:hover {
+            background: #1d4ed8;
+        }
+
+        .empty-result {
+            padding: 20px;
+            margin-top: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .result-heading {
+            margin-top: 32px;
+        }
+
+        @media (max-width: 600px) {
+            .recommendation-panel {
+                padding: 18px;
+            }
+
+            .school-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<header class="navbar">
-    <a href="../indeks.html" class="logo">
-        <span class="logo-icon">S</span>
-        <span>SEKOLAH<span class="logo-blue">KU</span></span>
-    </a>
+ <header class="navbar">
+        <div class="container">
 
-    <nav class="nav-menu">
-        <a href="../indeks.html" class="nav-link">Beranda</a>
-        <a href="sekolah.html" class="nav-link">Daftar Sekolah</a>
-        <a href="perbandingan.html" class="nav-link">Perbandingan</a>
-        <a href="rekomendasi.html" class="nav-link active">Rekomendasi</a>
-        <a href="favorit.html" class="nav-link">Favorit</a>
-    </nav>
-</header>
+            <a href="../index.html" class="logo-SekolahKu">
+                <span>SekolahKu</span>
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link">Beranda</a>
+                <a href="/pages/daftar-sekolah.html" class="nav-link">Daftar Sekolah</a>
+                <a href="/pages/perbandingan.html" class="nav-link">Perbandingan</a>
+                <a href="/pages/rekomendasi.html" class="nav-link active">Rekomendasi</a>
+                <a href="/pages/tentang.html" class="nav-link">Tentang Kami</a>
+            </nav>
+
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+    </header>
 
 <main class="page-container">
+
     <section class="page-heading">
         <span class="eyebrow">TEMUKAN PILIHANMU</span>
         <h1>Rekomendasi <span class="logo-blue">Sekolah</span></h1>
-        <p>Pilih jenjang dan minatmu untuk melihat pilihan yang sesuai.</p>
+        <p>
+            Pilih jenjang dan minatmu untuk menemukan SMA atau SMK
+            yang sesuai di Jawa Tengah.
+        </p>
     </section>
 
     <section class="recommendation-panel">
+
         <form id="formRekomendasi">
+
             <label for="jenjangRekomendasi">Jenjang sekolah</label>
             <select id="jenjangRekomendasi" required>
                 <option value="">Pilih jenjang</option>
@@ -52,63 +179,258 @@
             <button class="btn-primary" type="submit">
                 Cari Rekomendasi
             </button>
+
         </form>
 
         <div id="hasilRekomendasi" aria-live="polite"></div>
+
     </section>
 
     <p class="note">
-        Rekomendasi ini menggunakan aturan sederhana dan data contoh.
-        Hasil bukan penilaian resmi terhadap kualitas sekolah.
+        Rekomendasi berdasarkan jenjang dan kategori minat.
+        Rating yang belum diverifikasi tidak ditampilkan sebagai angka.
     </p>
+
 </main>
 
 <footer class="footer">
     <p>© 2026 SEKOLAHKU. Semua hak dilindungi.</p>
 </footer>
 
-<script src="js/script.js"></script>
 <script>
-document.getElementById("formRekomendasi")
-    .addEventListener("submit", function(event) {
-        event.preventDefault();
+const dataSekolah = [
+    {
+        nama: "SMA Pradita Dirgantara",
+        jenjang: "SMA",
+        kota: "Boyolali",
+        minat: ["akademik", "teknologi"],
+        rating: null,
+        prestasi: "Unggulan akademik",
+        alamat: "Ngemplak, Boyolali, Jawa Tengah"
+    },
+    {
+        nama: "SMA Taruna Nusantara",
+        jenjang: "SMA",
+        kota: "Magelang",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Pendidikan berasrama",
+        alamat: "Banyurojo, Mertoyudan, Magelang, Jawa Tengah"
+    },
+    {
+        nama: "SMA Kolese Loyola",
+        jenjang: "SMA",
+        kota: "Semarang",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Reputasi akademik",
+        alamat: "Semarang, Jawa Tengah"
+    },
+    {
+        nama: "SMA Unggulan CT Arsa",
+        jenjang: "SMA",
+        kota: "Sukoharjo",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Sekolah unggulan",
+        alamat: "Sukoharjo, Jawa Tengah"
+    },
+    {
+        nama: "SMA IT Ibnu Abbas",
+        jenjang: "SMA",
+        kota: "Klaten",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Prestasi akademik",
+        alamat: "Klaten, Jawa Tengah"
+    },
+    {
+        nama: "SMA Muhammadiyah PK Kottabarat",
+        jenjang: "SMA",
+        kota: "Surakarta",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Prestasi akademik",
+        alamat: "Surakarta, Jawa Tengah"
+    },
+    {
+        nama: "SMAN 1 Magelang",
+        jenjang: "SMA",
+        kota: "Magelang",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Rekam jejak akademik",
+        alamat: "Magelang, Jawa Tengah"
+    },
+    {
+        nama: "SMAN 1 Purworejo",
+        jenjang: "SMA",
+        kota: "Purworejo",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "Rekam jejak akademik",
+        alamat: "Purworejo, Jawa Tengah"
+    },
+    {
+        nama: "SMAN 3 Semarang",
+        jenjang: "SMA",
+        kota: "Semarang",
+        minat: ["akademik"],
+        rating: null,
+        prestasi: "SMA negeri favorit",
+        alamat: "Semarang, Jawa Tengah"
+    },
+    {
+        nama: "SMK Tunas Harapan",
+        jenjang: "SMK",
+        kota: "Pati",
+        minat: ["teknologi", "bisnis", "kreatif"],
+        rating: null,
+        prestasi: "Prestasi siswa",
+        alamat: "Pati, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri 7 Semarang",
+        jenjang: "SMK",
+        kota: "Semarang",
+        minat: ["teknologi", "bisnis"],
+        rating: 4.8,
+        prestasi: "Prestasi kejuruan",
+        alamat: "Semarang Selatan, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri 8 Surakarta",
+        jenjang: "SMK",
+        kota: "Surakarta",
+        minat: ["kreatif", "teknologi"],
+        rating: null,
+        prestasi: "Prestasi siswa",
+        alamat: "Surakarta, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri Bansari",
+        jenjang: "SMK",
+        kota: "Temanggung",
+        minat: ["teknologi"],
+        rating: null,
+        prestasi: "Prestasi siswa",
+        alamat: "Bansari, Temanggung, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri 2 Pati",
+        jenjang: "SMK",
+        kota: "Pati",
+        minat: ["teknologi", "bisnis"],
+        rating: null,
+        prestasi: "Prestasi siswa",
+        alamat: "Pati, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri 1 Pakis Aji",
+        jenjang: "SMK",
+        kota: "Jepara",
+        minat: ["teknologi", "kreatif"],
+        rating: null,
+        prestasi: "Prestasi siswa",
+        alamat: "Pakis Aji, Jepara, Jawa Tengah"
+    },
+    {
+        nama: "SMK Negeri Jawa Tengah",
+        jenjang: "SMK",
+        kota: "Semarang",
+        minat: ["teknologi", "bisnis"],
+        rating: null,
+        prestasi: "Pendidikan vokasi",
+        alamat: "Semarang, Jawa Tengah"
+    },
+    {
+        nama: "SMK Ibu Kartini Semarang",
+        jenjang: "SMK",
+        kota: "Semarang",
+        minat: ["bisnis", "kreatif"],
+        rating: 4.9,
+        prestasi: "Rating publik tinggi",
+        alamat: "Gajahmungkur, Semarang, Jawa Tengah"
+    }
+];
 
-        const jenjang = document.getElementById("jenjangRekomendasi").value;
-        const minat = document.getElementById("minatRekomendasi").value;
-        const hasil = document.getElementById("hasilRekomendasi");
+const namaMinat = {
+    akademik: "Akademik umum",
+    teknologi: "Teknologi",
+    bisnis: "Bisnis dan manajemen",
+    kesehatan: "Kesehatan",
+    kreatif: "Seni dan industri kreatif"
+};
 
-        const namaMinat = {
-            akademik: "akademik umum",
-            teknologi: "teknologi",
-            bisnis: "bisnis dan manajemen",
-            kesehatan: "kesehatan",
-            kreatif: "seni dan industri kreatif"
-        };
+const form = document.getElementById("formRekomendasi");
+const hasil = document.getElementById("hasilRekomendasi");
 
-        let pesan = "";
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-        if (jenjang === "SMA") {
-            pesan = "Pertimbangkan SMA yang memiliki program akademik dan mata pelajaran pilihan sesuai minatmu.";
-        } else if (minat === "teknologi") {
-            pesan = "Pertimbangkan SMK dengan program keahlian teknologi atau rekayasa perangkat lunak.";
-        } else if (minat === "bisnis") {
-            pesan = "Pertimbangkan SMK yang memiliki program keahlian bisnis dan manajemen.";
-        } else if (minat === "kesehatan") {
-            pesan = "Periksa SMK yang menawarkan program terkait kesehatan, jika tersedia dan sesuai ketentuan.";
-        } else if (minat === "kreatif") {
-            pesan = "Pertimbangkan SMK dengan program keahlian seni atau industri kreatif.";
-        }
-hasil.innerHTML = 
-            <article class="feature-card">
-                <h2>Hasil Rekomendasi</h2>
-                <p>Jenjang pilihan: <strong>${jenjang}</strong></p>
-                <p>Minat: <strong>${namaMinat[minat]}</strong></p>
-                <p>${pesan}</p>
-                <p>Periksa lokasi, akreditasi, fasilitas, dan informasi penerimaan
-                sekolah sebelum menentukan pilihan.</p>
-            </article>
-        ;
-    });
+    const jenjang =
+        document.getElementById("jenjangRekomendasi").value;
+
+    const minat =
+        document.getElementById("minatRekomendasi").value;
+
+    const hasilSekolah = dataSekolah.filter(sekolah =>
+        sekolah.jenjang === jenjang &&
+        sekolah.minat.includes(minat)
+    );
+
+    if (hasilSekolah.length === 0) {
+        hasil.innerHTML = `
+            <div class="empty-result">
+                Belum ada sekolah yang cocok dengan pilihanmu.
+                Coba pilih minat lainnya.
+            </div>
+        `;
+        return;
+    }
+
+    hasil.innerHTML = `
+        <div class="result-heading">
+            <h2>Hasil Rekomendasi</h2>
+            <p>
+                Jenjang: <strong>${jenjang}</strong> |
+                Minat: <strong>${namaMinat[minat]}</strong>
+            </p>
+            <p>Ditemukan ${hasilSekolah.length} sekolah yang sesuai.</p>
+        </div>
+
+        <div class="school-grid">
+            ${hasilSekolah.map(sekolah => `
+                <article class="recommendation-card">
+                    <span class="school-badge">${sekolah.jenjang}</span>
+
+                    <h3>${sekolah.nama}</h3>
+
+                    <p>📍 ${sekolah.kota}</p>
+
+                    <p class="school-rating">
+                        ⭐ ${
+                            sekolah.rating !== null
+                                ? sekolah.rating + "/5"
+                                : "Rating belum tersedia"
+                        }
+                    </p>
+
+                    <p>${sekolah.prestasi}</p>
+
+                    <a
+                        class="school-map-link"
+                        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sekolah.nama + " " + sekolah.alamat)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Lihat Lokasi
+                    </a>
+                </article>
+            `).join("")}
+        </div>
+    `;
+});
 </script>
 
 </body>

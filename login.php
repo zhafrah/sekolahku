@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user['role'] === 'admin') {
                 header('Location: admin/index.php');
             } else {
-                header('Location: indeks.html');
+                header('Location: index.html');
             }
             exit;
         }
@@ -58,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <header class="auth-header">
-        <a class="brand" href="indeks.html">
+        <a class="brand" href="index.html">
             <span class="brand-mark">S</span>
             SEKOLAH<span>KU</span>
         </a>
 
-        <a class="back-link" href="indeks.html">
+        <a class="back-link" href="index.html">
             ← Kembali ke Beranda
         </a>
     </header>

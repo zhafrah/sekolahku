@@ -4,23 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perbandingan Sekolah | SEKOLAHKU</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-<header class="navbar">
-    <a href="../indeks.html" class="logo">
-        <span class="logo-icon">S</span>
-        <span>SEKOLAH<span class="logo-blue">KU</span></span>
-    </a>
 
-    <nav class="nav-menu">
-        <a href="../indeks.html" class="nav-link">Beranda</a>
-        <a href="sekolah.html" class="nav-link">Daftar Sekolah</a>
-        <a href="perbandingan.html" class="nav-link active">Perbandingan</a>
-        <a href="rekomendasi.html" class="nav-link">Rekomendasi</a>
-        <a href="favorit.html" class="nav-link">Favorit</a>
-    </nav>
+<header class="navbar">
+    <div class="container">
+
+        <a href="../index.html" class="logo-SekolahKu">
+            <span>SekolahKu</span>
+        </a>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="../index.html" class="nav-link">Beranda</a>
+            <a href="daftar-sekolah.html" class="nav-link">Daftar Sekolah</a>
+            <a href="perbandingan.html" class="nav-link active">Perbandingan</a>
+            <a href="rekomendasi.html" class="nav-link">Rekomendasi</a>
+            <a href="tentang.html" class="nav-link">Tentang Kami</a>
+        </nav>
+
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Buka menu navigasi"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+    </div>
 </header>
 
 <main class="page-container">
@@ -32,7 +46,7 @@
 
     <section class="comparison-panel">
         <div class="comparison-selectors">
-            <label>
+            <label for="sekolah1">
                 Sekolah pertama
                 <select id="sekolah1">
                     <option value="sma">SMA Nusantara</option>
@@ -40,7 +54,7 @@
                 </select>
             </label>
 
-            <label>
+            <label for="sekolah2">
                 Sekolah kedua
                 <select id="sekolah2">
                     <option value="smk">SMK Teknologi Indonesia</option>
@@ -58,33 +72,7 @@
                         <th id="judul2">SMK Teknologi Indonesia</th>
                     </tr>
                 </thead>
-                <tbody id="hasilPerbandingan">
-                    <tr>
-                        <td>Jenis sekolah</td>
-                        <td>SMA</td>
-                        <td>SMK</td>
-                    </tr>
-                    <tr>
-                        <td>Fokus pendidikan</td>
-                        <td>Akademik umum</td>
-                        <td>Kejuruan dan keterampilan</td>
-                    </tr>
-                    <tr>
-                        <td>Akreditasi</td>
-                        <td>Belum diverifikasi</td>
-                        <td>Belum diverifikasi</td>
-                    </tr>
-                    <tr>
-                        <td>Fasilitas</td>
-                        <td>Data belum tersedia</td>
-                        <td>Data belum tersedia</td>
-                    </tr>
-                    <tr>
-                        <td>Biaya pendidikan</td>
-                        <td>Perlu konfirmasi</td>
-                        <td>Perlu konfirmasi</td>
-                    </tr>
-                </tbody>
+                <tbody id="hasilPerbandingan"></tbody>
             </table>
         </div>
 
@@ -99,7 +87,7 @@
     <p>© 2026 SEKOLAHKU. Semua hak dilindungi.</p>
 </footer>
 
-<script src="js/script.js"></script>
+<script src="../js/script.js"></script>
 <script>
 const dataSekolah = {
     sma: {
@@ -119,9 +107,13 @@ const dataSekolah = {
         biaya: "Perlu konfirmasi"
     }
 };
+
 function bandingkanSekolah() {
-    const a = dataSekolah[document.getElementById("sekolah1").value];
-    const b = dataSekolah[document.getElementById("sekolah2").value];
+    const sekolah1 = document.getElementById("sekolah1").value;
+    const sekolah2 = document.getElementById("sekolah2").value;
+
+    const a = dataSekolah[sekolah1];
+    const b = dataSekolah[sekolah2];
 
     document.getElementById("judul1").textContent = a.nama;
     document.getElementById("judul2").textContent = b.nama;
@@ -135,19 +127,21 @@ function bandingkanSekolah() {
     ];
 
     document.getElementById("hasilPerbandingan").innerHTML =
-        kriteria.map(([label, key]) => 
+        kriteria.map(([label, key]) => `
             <tr>
                 <td>${label}</td>
                 <td>${a[key]}</td>
                 <td>${b[key]}</td>
             </tr>
-        ).join("");
+        `).join("");
 }
 
 document.getElementById("sekolah1")
     .addEventListener("change", bandingkanSekolah);
+
 document.getElementById("sekolah2")
     .addEventListener("change", bandingkanSekolah);
+
 bandingkanSekolah();
 </script>
 

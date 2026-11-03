@@ -1,36 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Daftar Sekolah | SEKOLAHKU</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/sekolah.js" defer></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/data.js" defer></script>
+    <script src="../js/sekolah.js" defer></script>
 </head>
 <body>
 
-<header class="header">
-    <a href="index.html" class="brand">
-        <span class="logo">✦</span>
-        <span>
-            <b>SEKOLAHKU</b>
-            <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
-        </span>
-    </a>
+ <header class="navbar">
+        <div class="container">
 
-    <button class="menu-toggle" id="menuToggle">☰</button>
+            <a href="../index.html" class="logo-SekolahKu">
+                <span>SekolahKu</span>
+            </a>
 
-    <nav id="nav">
-        <a href="index.html">Beranda</a>
-        <a href="sekolah.html" class="active">Daftar Sekolah</a>
-        <a href="perbandingan.html">Perbandingan</a>
-        <a href="rekomendasi.html">Rekomendasi</a>
-        <a href="tentang.html">Tentang</a>
-    </nav>
+            <nav class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link">Beranda</a>
+                <a href="../pages/daftar-sekolah.html" class="nav-link active">Daftar Sekolah</a>
+                <a href="../pages/perbandingan.html" class="nav-link">Perbandingan</a>
+                <a href="../pages/rekomendasi.html" class="nav-link">Rekomendasi</a>
+                <a href="../pages/tentang.html" class="nav-link">Tentang Kami</a>
+            </nav>
 
-    <a href="login.php" class="login">Masuk / Daftar</a>
-</header>
+            <div class="nav-actions">
+                <a href="../login.php" class="btn-login">Masuk</a>
+                <a href="../daftar.php" class="btn-primary">Daftar</a>
+            </div>
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+    </header>
 
 <main>
     <section class="hero">
@@ -49,26 +63,10 @@
             </p>
 
             <div class="crumb">
-                <a href="index.html">Beranda</a>
+                <a href="../index.html">Beranda</a>
                 <span>›</span>
                 <b>Daftar Sekolah</b>
             </div>
-        </div>
-
-        <div class="hero-illustration">
-            <div class="sun"></div>
-
-            <div class="school-building">
-                <div class="roof"></div>
-                <div class="building-top"></div>
-                <div class="building-main">
-                    <div class="windows">▥　▥　▥</div>
-                    <div class="door"></div>
-                </div>
-            </div>
-
-            <div class="floating-cap">🎓</div>
-            <div class="floating-star">✦</div>
         </div>
     </section>
 
@@ -189,8 +187,6 @@
 
     <section class="map-promo wrap">
         <div class="promo-copy">
-            <span class="pin-round">⌖</span>
-
             <div>
                 <span class="section-label light">
                     CARI BERDASARKAN LOKASI
@@ -204,7 +200,7 @@
                 </p>
 
                 <a href="peta.html" class="btn white">
-                    Buka Peta Lokasi →
+                    Buka Peta Lokasi
                 </a>
             </div>
         </div>
@@ -223,21 +219,12 @@
 
 <footer class="footer">
     <div class="footer-main">
-        <a href="index.html" class="brand footer-brand">
-            <span class="logo">✦</span>
+        <a href="../index.html" class="brand footer-brand">
             <span>
                 <b>SEKOLAHKU</b>
                 <small>Temukan Sekolah Terbaik untuk Masa Depan</small>
             </span>
         </a>
-
-        <nav>
-            <a href="index.html">Beranda</a>
-            <a href="sekolah.html">Daftar Sekolah</a>
-            <a href="perbandingan.html">Perbandingan</a>
-            <a href="rekomendasi.html">Rekomendasi</a>
-            <a href="tentang.html">Tentang</a>
-        </nav>
     </div>
 
     <div class="footer-bottom">
