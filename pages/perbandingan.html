@@ -17,7 +17,6 @@
 
         <nav class="nav-menu" id="navMenu">
             <a href="../index.html" class="nav-link">Beranda</a>
-            <a href="daftar-sekolah.html" class="nav-link">Daftar Sekolah</a>
             <a href="perbandingan.html" class="nav-link active">Perbandingan</a>
             <a href="rekomendasi.html" class="nav-link">Rekomendasi</a>
             <a href="tentang.html" class="nav-link">Tentang Kami</a>
@@ -46,37 +45,38 @@
         <p>Bandingkan informasi SMA dan SMK sebelum menentukan pilihan.</p>
     </section>
 
-    <section class="comparison-panel">
-        <div class="comparison-selectors">
-            <label for="sekolah1">
-                Sekolah pertama
-                <select id="sekolah1">
-                    <option value="sma">SMA Nusantara</option>
-                    <option value="smk">SMK Teknologi Indonesia</option>
-                </select>
-            </label>
+    <div class="comparison-selectors">
 
-            <label for="sekolah2">
-                Sekolah kedua
-                <select id="sekolah2">
-                    <option value="smk">SMK Teknologi Indonesia</option>
-                    <option value="sma">SMA Nusantara</option>
-                </select>
-            </label>
-        </div>
+    <label for="sekolah1">
+        Sekolah pertama
+        <input
+            type="text"
+            id="sekolah1"
+            list="daftarSekolah"
+            placeholder="Ketik nama sekolah pertama..."
+            value="SMA Negeri 1 Semarang"
+            autocomplete="off"
+        >
+    </label>
 
-        <div class="table-wrapper">
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th id="judul1">SMA Nusantara</th>
-                        <th id="judul2">SMK Teknologi Indonesia</th>
-                    </tr>
-                </thead>
-                <tbody id="hasilPerbandingan"></tbody>
-            </table>
-        </div>
+    <label for="sekolah2">
+        Sekolah kedua
+        <input
+            type="text"
+            id="sekolah2"
+            list="daftarSekolah"
+            placeholder="Ketik nama sekolah kedua..."
+            value="SMK Negeri 7 Semarang"
+            autocomplete="off"
+        >
+    </label>
+
+    <datalist id="daftarSekolah">
+        <option value="SMA Negeri 1 Semarang"></option>
+        <option value="SMK Negeri 7 Semarang"></option>
+    </datalist>
+
+</div>
 
         <p class="note">
             Catatan: nama dan informasi sekolah di atas merupakan data
@@ -91,20 +91,24 @@
 
 <script src="../js/script.js"></script>
 <script>
+
 const dataSekolah = {
-    sma: {
-        nama: "SMA Nusantara",
-        jenis: "SMA",
-        fokus: "Akademik umum",
-        akreditasi: "Belum diverifikasi",
+    sma1: {
+        nama: "SMA Negeri 1 Semarang",
+        jenis: "SMA Negeri",
+        fokus: "Pendidikan akademik umum",
+        alamat: "Jl. Taman Menteri Supeno No. 1, Semarang Selatan",
+        akreditasi: "Perlu verifikasi",
         fasilitas: "Data belum tersedia",
         biaya: "Perlu konfirmasi"
     },
-    smk: {
-        nama: "SMK Teknologi Indonesia",
-        jenis: "SMK",
-        fokus: "Kejuruan dan keterampilan",
-        akreditasi: "Belum diverifikasi",
+
+    smk7: {
+        nama: "SMK Negeri 7 Semarang",
+        jenis: "SMK Negeri",
+        fokus: "Pendidikan kejuruan dan keterampilan",
+        alamat: "Jl. Simpang Lima No. 1, Semarang Selatan",
+        akreditasi: "Perlu verifikasi",
         fasilitas: "Data belum tersedia",
         biaya: "Perlu konfirmasi"
     }
@@ -120,13 +124,14 @@ function bandingkanSekolah() {
     document.getElementById("judul1").textContent = a.nama;
     document.getElementById("judul2").textContent = b.nama;
 
-    const kriteria = [
-        ["Jenis sekolah", "jenis"],
-        ["Fokus pendidikan", "fokus"],
-        ["Akreditasi", "akreditasi"],
-        ["Fasilitas", "fasilitas"],
-        ["Biaya pendidikan", "biaya"]
-    ];
+   const kriteria = [
+    ["Jenis sekolah", "jenis"],
+    ["Fokus pendidikan", "fokus"],
+    ["Alamat", "alamat"],
+    ["Akreditasi", "akreditasi"],
+    ["Fasilitas", "fasilitas"],
+    ["Biaya pendidikan", "biaya"]
+];
 
     document.getElementById("hasilPerbandingan").innerHTML =
         kriteria.map(([label, key]) => `
