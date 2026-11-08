@@ -7,142 +7,40 @@
 
     <!-- CSS berada di folder utama project -->
     <link rel="stylesheet" href="../css/style.css">
-
-    <style>
-        .recommendation-panel {
-            background: #fff;
-            padding: 28px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            margin: 24px 0;
-        }
-
-        #formRekomendasi {
-            display: grid;
-            gap: 12px;
-            max-width: 600px;
-        }
-
-        #formRekomendasi label {
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        #formRekomendasi select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: white;
-            font-size: 15px;
-        }
-
-        .school-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 24px;
-        }
-
-        .recommendation-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 22px;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .recommendation-card h3 {
-            margin: 8px 0;
-            font-size: 19px;
-        }
-
-        .school-badge {
-            display: inline-block;
-            width: fit-content;
-            padding: 5px 12px;
-            border-radius: 20px;
-            background: #eaf2ff;
-            color: #2563eb;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .school-rating {
-            font-weight: 600;
-            color: #b7791f;
-        }
-
-        .school-map-link {
-            display: inline-block;
-            margin-top: auto;
-            padding: 11px 16px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .school-map-link:hover {
-            background: #1d4ed8;
-        }
-
-        .empty-result {
-            padding: 20px;
-            margin-top: 20px;
-            background: #f9fafb;
-            border-radius: 10px;
-        }
-
-        .result-heading {
-            margin-top: 32px;
-        }
-
-        @media (max-width: 600px) {
-            .recommendation-panel {
-                padding: 18px;
-            }
-
-            .school-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
 <body>
+    <header class="navbar">
+    <div class="container">
 
- <header class="navbar">
-        <div class="container">
+        <a href="../index.html" class="logo-SekolahKu">
+            <span>SekolahKu</span>
+        </a>
 
-            <a href="../index.html" class="logo-SekolahKu">
-                <span>SekolahKu</span>
-            </a>
+        <nav class="nav-menu" id="navMenu">
+            <a href="../index.html" class="nav-link">Beranda</a>
+            <a href="daftar-sekolah.html" class="nav-link">Daftar Sekolah</a>
+            <a href="perbandingan.html" class="nav-link">Perbandingan</a>
+            <a href="rekomendasi.html" class="nav-link active">Rekomendasi</a>
+            <a href="tentang.html" class="nav-link">Tentang Kami</a>
+        </nav>
 
-            <nav class="nav-menu" id="navMenu">
-                <a href="../index.html" class="nav-link">Beranda</a>
-                <a href="/pages/daftar-sekolah.html" class="nav-link">Daftar Sekolah</a>
-                <a href="/pages/perbandingan.html" class="nav-link">Perbandingan</a>
-                <a href="/pages/rekomendasi.html" class="nav-link active">Rekomendasi</a>
-                <a href="/pages/tentang.html" class="nav-link">Tentang Kami</a>
-            </nav>
-
-
-            <button
-                type="button"
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label="Buka menu navigasi"
-                aria-expanded="false"
-            >
-                ☰
-            </button>
-
+        <div class="nav-actions">
+            <a href="../login.php" class="btn-login">Masuk</a>
+            <a href="../daftar.php" class="btn-primary">Daftar</a>
         </div>
-    </header>
+
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Buka menu navigasi"
+            aria-expanded="false">
+            ☰
+        </button>
+
+    </div>
+</header>
 
 <main class="page-container">
 
