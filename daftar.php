@@ -2,13 +2,6 @@
 session_start();
 require_once __DIR__ . '/config/database.php';
 
-if (isset($_SESSION['user_id'])) {
-    header('Location: ' . ($_SESSION['role'] === 'admin'
-        ? 'admin/index.php'
-        : 'index.html'));
-    exit;
-}
-
 $error = '';
 $name = '';
 $email = '';
@@ -19,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
-    if ($name === '' || $email === '' || $password === '') {
+    if ($name === '' || $email === '' || $password === '' || $confirmPassword === '') {
         $error = 'Semua kolom wajib diisi.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Format email tidak valid.';
@@ -28,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirmPassword) {
         $error = 'Konfirmasi password tidak sama.';
     } else {
-        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ?');
+        $stmt = $pdo->prepare(
+            'SELECT id FROM users WHERE email = ? LIMIT 1'
+        );
         $stmt->execute([$email]);
 
         if ($stmt->fetch()) {
@@ -40,7 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'INSERT INTO users (name, email, password, role)
                  VALUES (?, ?, ?, ?)'
             );
-            $stmt->execute([$name, $email, $hashedPassword, 'user']);
+
+            $stmt->execute([
+                $name,
+                $email,
+                $hashedPassword,
+                'user'
+            ]);
 
             header('Location: login.php?registered=1');
             exit;
@@ -62,14 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <span class="brand-mark">S</span>
             SEKOLAH<span>KU</span>
         </a>
-        <a class="back-link" href="index.html">← Kembali ke Beranda</a>
+
+        <a class="back-link" href="index.html">
+            ← Kembali ke Beranda
+        </a>
     </header>
 
     <main class="auth-layout">
         <section class="auth-intro">
             <span class="eyebrow">MULAI PERJALANANMU</span>
             <h1>Satu akun untuk langkah menuju sekolah impian.</h1>
-            <p>Buat akun SEKOLAHKU agar kamu dapat mulai menjelajahi informasi sekolah.</p>
+            <p>
+                Buat akun SEKOLAHKU agar kamu dapat mulai menjelajahi
+                informasi sekolah.
+            </p>
         </section>
 
         <section class="auth-card">
@@ -127,7 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     required
                 >
 
-                <button type="submit" class="btn-primary">Daftar Sekarang</button>
+                <button type="submit" class="btn-primary">
+                    Daftar Sekarang
+                </button>
             </form>
 
             <p class="auth-switch">
@@ -138,7 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
     <footer class="auth-footer">
-        &copy; <?= date('Y') ?> SEKOLAHKU. Informasi sekolah untuk masa depanmu.
+        &copy; <?= date('Y') ?> SEKOLAHKU.
+        Informasi sekolah untuk masa depanmu.
     </footer>
 </body>
 </html>

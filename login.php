@@ -2,12 +2,6 @@
 session_start();
 require_once __DIR__ . '/config/database.php';
 
-
-if (isset($_SESSION['user_id'])) {
-    $_SESSION = [];
-    session_destroy();
-}
-
 $error = '';
 $email = '';
 
@@ -26,28 +20,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
+
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['role'] = strtolower(trim($user['role']));
 
-            if ($user['role'] === 'admin') {
+            if ($_SESSION['role'] === 'admin') {
                 header('Location: admin/index.php');
-            } else {
-                header('Location: index.html');
+                exit;
             }
-            exit;
-        }
 
-        $error = 'Email atau password tidak sesuai.';
+            if ($_SESSION['role'] === 'user') {
+                header('Location: index.html');
+                exit;
+            }
+
+            $error = 'Role akun tidak dikenali.';
+        } else {
+            $error = 'Email atau password tidak sesuai.';
+        }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -57,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
+
     <header class="auth-header">
         <a class="brand" href="index.html">
             <span class="brand-mark">S</span>
@@ -69,9 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <main class="auth-layout">
+
         <section class="auth-intro">
             <span class="eyebrow">SELAMAT DATANG KEMBALI</span>
+
             <h1>Temukan sekolah yang tepat untuk masa depanmu.</h1>
+
             <p>
                 Masuk ke akun SEKOLAHKU untuk melanjutkan perjalanan
                 mencari informasi SMA dan SMK.
@@ -79,8 +84,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
 
         <section class="auth-card">
+
             <h2>Masuk ke Akun</h2>
-            <p class="muted">Masukkan data akun yang sudah terdaftar.</p>
+
+            <p class="muted">
+                Masukkan data akun yang sudah terdaftar.
+            </p>
 
             <?php if ($error !== ''): ?>
                 <div class="alert" role="alert">
@@ -89,7 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form method="POST" action="login.php">
+
                 <label for="email">Email</label>
+
                 <input
                     type="email"
                     id="email"
@@ -101,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 >
 
                 <label for="password">Password</label>
+
                 <input
                     type="password"
                     id="password"
@@ -110,13 +122,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     required
                 >
 
-                <button type="submit" class="btn-primary">Masuk</button>
+                <button type="submit" class="btn-primary">
+                    Masuk
+                </button>
+
             </form>
 
             <p class="auth-switch">
                 Belum punya akun?
                 <a href="daftar.php">Daftar sekarang</a>
             </p>
+
         </section>
     </main>
 
@@ -124,5 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         &copy; <?= date('Y') ?> SEKOLAHKU.
         Informasi sekolah untuk masa depanmu.
     </footer>
+
 </body>
 </html>

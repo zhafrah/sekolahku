@@ -2,33 +2,40 @@
 session_start();
 require_once __DIR__ . '/../config/database.php';
 
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;
 }
 
+// Cek apakah akun memiliki role admin
 if (($_SESSION['role'] ?? '') !== 'admin') {
     header('Location: ../index.html');
     exit;
 }
 
+// Menghitung jumlah pengguna
 $totalUsers = (int) $pdo->query(
     "SELECT COUNT(*) FROM users WHERE role = 'user'"
 )->fetchColumn();
 
+// Menghitung jumlah admin
 $totalAdmins = (int) $pdo->query(
     "SELECT COUNT(*) FROM users WHERE role = 'admin'"
 )->fetchColumn();
 
+// Mengambil data akun
 $users = $pdo->query(
     'SELECT id, name, email, role, created_at
-     FROM users ORDER BY id DESC'
+     FROM users
+     ORDER BY id DESC'
 )->fetchAll();
 
 function e($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -37,7 +44,9 @@ function e($value) {
     <title>Dashboard Admin | SEKOLAHKU</title>
     <link rel="stylesheet" href="../css/auth.css">
 </head>
+
 <body>
+
     <header class="auth-header">
         <a class="brand" href="../index.html">
             <span class="brand-mark">S</span>
@@ -48,21 +57,31 @@ function e($value) {
             <span class="admin-greeting">
                 Halo, <?= e($_SESSION['name'] ?? 'Admin') ?>
             </span>
-            <a class="back-link" href="../index.html">Lihat Website</a>
+
+            <a class="back-link" href="../index.html">
+                Lihat Website
+            </a>
+
             <form action="../logout.php" method="POST">
-                <button class="btn-logout" type="submit">Keluar</button>
+                <button class="btn-logout" type="submit">
+                    Keluar
+                </button>
             </form>
         </div>
     </header>
 
     <main class="admin-container">
+
         <span class="eyebrow">PANEL PENGELOLAAN</span>
+
         <h1>Dashboard Admin</h1>
+
         <p class="muted">
             Selamat datang di panel administrasi SEKOLAHKU.
         </p>
 
         <section class="stats-grid">
+
             <article class="stat-card">
                 <span>Total Pengguna</span>
                 <strong><?= $totalUsers ?></strong>
@@ -74,13 +93,19 @@ function e($value) {
                 <strong><?= $totalAdmins ?></strong>
                 <p>Akun dengan akses admin</p>
             </article>
+
         </section>
 
         <section class="table-card">
+
             <h2>Daftar Akun</h2>
-            <p class="muted">Informasi akun yang terdaftar di SEKOLAHKU.</p>
+
+            <p class="muted">
+                Informasi akun yang terdaftar di SEKOLAHKU.
+            </p>
 
             <div class="table-wrap">
+
                 <table>
                     <thead>
                         <tr>
@@ -91,9 +116,13 @@ function e($value) {
                             <th>Tanggal Daftar</th>
                         </tr>
                     </thead>
+
                     <tbody>
+
                         <?php if (count($users) > 0): ?>
+
                             <?php foreach ($users as $index => $user): ?>
+
                                 <tr>
                                     <td><?= $index + 1 ?></td>
                                     <td><?= e($user['name']) ?></td>
@@ -105,16 +134,26 @@ function e($value) {
                                     </td>
                                     <td><?= e($user['created_at']) ?></td>
                                 </tr>
+
                             <?php endforeach; ?>
+
                         <?php else: ?>
+
                             <tr>
-                                <td colspan="5">Belum ada akun terdaftar.</td>
+                                <td colspan="5">
+                                    Belum ada akun terdaftar.
+                                </td>
                             </tr>
+
                         <?php endif; ?>
+
                     </tbody>
                 </table>
+
             </div>
         </section>
+
     </main>
+
 </body>
 </html>
